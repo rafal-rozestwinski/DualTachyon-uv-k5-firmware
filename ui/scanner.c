@@ -23,6 +23,7 @@
 #include "misc.h"
 #include "ui/helper.h"
 #include "ui/scanner.h"
+#include "ui/theme.h"
 
 void UI_DisplayScanner(void)
 {
@@ -38,7 +39,7 @@ void UI_DisplayScanner(void)
 	} else {
 		sprintf(String, "FREQ:**.*****");
 	}
-	UI_PrintString(String, 2, 127, 1, 8, 0);
+	UI_PrintString(String, gUI_Theme.Scanner.Freq.X0, gUI_Theme.Scanner.Freq.X1, gUI_Theme.Scanner.Freq.Y, gUI_Theme.Scanner.Freq.W, 0);
 	memset(String, 0, sizeof(String));
 
 	if (gScanCssState < SCAN_CSS_STATE_FOUND || !gScanUseCssResult) {
@@ -48,7 +49,7 @@ void UI_DisplayScanner(void)
 	} else {
 		sprintf(String, "DCS:D%03oN", DCS_Options[gScanCssResultCode]);
 	}
-	UI_PrintString(String, 2, 127, 3, 8, 0);
+	UI_PrintString(String, gUI_Theme.Scanner.Css.X0, gUI_Theme.Scanner.Css.X1, gUI_Theme.Scanner.Css.Y, gUI_Theme.Scanner.Css.W, 0);
 	memset(String, 0, sizeof(String));
 
 	if (gScannerEditState == 2) {
@@ -73,7 +74,7 @@ void UI_DisplayScanner(void)
 		bCentered = 0;
 	}
 
-	UI_PrintString(String, Start, 127, 5, 8, bCentered);
+	UI_PrintString(String, gUI_Theme.Scanner.Status.X0 + Start, gUI_Theme.Scanner.Status.X1, gUI_Theme.Scanner.Status.Y, gUI_Theme.Scanner.Status.W, bCentered);
 	ST7565_BlitFullScreen();
 }
 

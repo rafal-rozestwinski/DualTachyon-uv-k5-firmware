@@ -212,6 +212,8 @@ extern uint16_t gCurrentRSSI;
 
 extern uint8_t gIsLocked;
 
+extern bool bRestoreTheme;
+
 // --------
 
 void NUMBER_Get(char *pDigits, uint32_t *pInteger);

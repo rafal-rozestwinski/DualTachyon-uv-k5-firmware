@@ -95,6 +95,7 @@ OBJS += ui/menu.o
 OBJS += ui/rssi.o
 OBJS += ui/scanner.o
 OBJS += ui/status.o
+OBJS += ui/theme.o
 OBJS += ui/ui.o
 OBJS += ui/welcome.o
 OBJS += version.o

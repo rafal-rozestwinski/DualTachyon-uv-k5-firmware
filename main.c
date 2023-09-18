@@ -35,6 +35,7 @@
 #include "radio.h"
 #include "settings.h"
 #include "ui/lock.h"
+#include "ui/theme.h"
 #include "ui/welcome.h"
 #include "version.h"
 
@@ -87,6 +88,14 @@ void Main(void)
 
 	for (i = 0; i < 4; i++) {
 		BOARD_ADC_GetBatteryInfo(&gBatteryVoltages[i], &gBatteryCurrent);
+	}
+
+	if (KEYBOARD_Poll() == KEY_F) {
+		bRestoreTheme = true;
+	}
+
+	if (bRestoreTheme) {
+		gUI_Theme = gUI_ThemeDefault;
 	}
 
 	BATTERY_GetReadings(false);

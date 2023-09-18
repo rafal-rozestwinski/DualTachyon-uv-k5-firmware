@@ -19,13 +19,14 @@
 #include "driver/st7565.h"
 #include "functions.h"
 #include "ui/battery.h"
+#include "ui/theme.h"
 
 void UI_DisplayBattery(uint8_t Level)
 {
 	const uint8_t *pBitmap;
 	bool bClearMode = false;
 
-	if (gCurrentFunction != 1) {
+	if (gCurrentFunction != FUNCTION_TRANSMIT) {
 		switch (Level) {
 		case 0:
 			pBitmap = NULL;
@@ -47,7 +48,7 @@ void UI_DisplayBattery(uint8_t Level)
 			pBitmap = BITMAP_BatteryLevel5;
 			break;
 		}
-		ST7565_DrawLine(110, 0, 18, pBitmap, bClearMode);
+		ST7565_DrawLine(gUI_Theme.Battery.X, gUI_Theme.Battery.Y, gUI_Theme.Battery.Size, pBitmap, bClearMode);
 	}
 }
 

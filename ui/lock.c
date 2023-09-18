@@ -27,6 +27,7 @@
 #include "ui/helper.h"
 #include "ui/inputbox.h"
 #include "ui/lock.h"
+#include "ui/theme.h"
 
 static void Render(void)
 {
@@ -36,7 +37,7 @@ static void Render(void)
 	memset(gStatusLine, 0, sizeof(gStatusLine));
 	memset(gFrameBuffer, 0, sizeof(gFrameBuffer));
 	strcpy(String, "LOCK");
-	UI_PrintString(String, 0, 127, 1, 10, true);
+	UI_PrintString(String, gUI_Theme.Lock.Title.X0, gUI_Theme.Lock.Title.X1, gUI_Theme.Lock.Title.Y, gUI_Theme.Lock.Title.W, true);
 	for (i = 0; i < 6; i++) {
 		if (gInputBox[i] == 10) {
 			String[i] = '-';
@@ -45,7 +46,7 @@ static void Render(void)
 		}
 	}
 	String[6] = 0;
-	UI_PrintString(String, 0, 127, 3, 12, true);
+	UI_PrintString(String, gUI_Theme.Lock.Code.X0, gUI_Theme.Lock.Code.X1, gUI_Theme.Lock.Code.Y, gUI_Theme.Lock.Code.W, true);
 	ST7565_BlitStatusLine();
 	ST7565_BlitFullScreen();
 }

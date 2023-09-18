@@ -23,6 +23,7 @@
 #include "ui/aircopy.h"
 #include "ui/helper.h"
 #include "ui/inputbox.h"
+#include "ui/theme.h"
 
 void UI_DisplayAircopy(void)
 {
@@ -37,14 +38,14 @@ void UI_DisplayAircopy(void)
 	} else {
 		strcpy(String, "AIR COPY(CMP)");
 	}
-	UI_PrintString(String, 2, 127, 0, 8, true);
+	UI_PrintString(String, gUI_Theme.Aircopy.Status.X0, gUI_Theme.Aircopy.Status.X1, gUI_Theme.Aircopy.Status.Y, gUI_Theme.Aircopy.Status.W, true);
 
 	if (gInputBoxIndex == 0) {
 		NUMBER_ToDigits(gRxVfo->ConfigRX.Frequency, String);
-		UI_DisplayFrequency(String, 16, 2, 0, 0);
-		UI_DisplaySmallDigits(2, String + 6, 97, 3);
+		UI_DisplayFrequency(String, gUI_Theme.Aircopy.Freq.X, gUI_Theme.Aircopy.Freq.Y, false, false);
+		UI_DisplaySmallDigits(gUI_Theme.Aircopy.Digits.Count, String + 6, gUI_Theme.Aircopy.Digits.X, gUI_Theme.Aircopy.Digits.Y);
 	} else {
-		UI_DisplayFrequency(gInputBox, 16, 2, 1, 0);
+		UI_DisplayFrequency(gInputBox, gUI_Theme.Aircopy.Freq.X, gUI_Theme.Aircopy.Freq.Y, true, false);
 	}
 
 	memset(String, 0, sizeof(String));
@@ -54,7 +55,7 @@ void UI_DisplayAircopy(void)
 	} else if (gAirCopyIsSendMode == 1) {
 		sprintf(String, "SND:%d", gAirCopyBlockNumber);
 	}
-	UI_PrintString(String, 2, 127, 4, 8, true);
+	UI_PrintString(String, gUI_Theme.Aircopy.Mode.X0, gUI_Theme.Aircopy.Mode.X1, gUI_Theme.Aircopy.Mode.Y, gUI_Theme.Aircopy.Mode.W, true);
 	ST7565_BlitFullScreen();
 }
 

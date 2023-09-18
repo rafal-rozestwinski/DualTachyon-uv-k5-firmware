@@ -23,6 +23,7 @@
 #include "ui/fmradio.h"
 #include "ui/helper.h"
 #include "ui/inputbox.h"
+#include "ui/theme.h"
 #include "ui/ui.h"
 
 void UI_DisplayFM(void)
@@ -32,10 +33,8 @@ void UI_DisplayFM(void)
 
 	memset(gFrameBuffer, 0, sizeof(gFrameBuffer));
 
-	memset(String, 0, sizeof(String));
-	strcpy(String, "FM");
+	UI_PrintString("FM", gUI_Theme.FM.Title.X0, gUI_Theme.FM.Title.X1, gUI_Theme.FM.Title.Y, gUI_Theme.FM.Title.W, true);
 
-	UI_PrintString(String, 0, 127, 0, 12, true);
 	memset(String, 0, sizeof(String));
 
 	if (gAskToSave) {
@@ -66,7 +65,8 @@ void UI_DisplayFM(void)
 		}
 	}
 
-	UI_PrintString(String, 0, 127, 2, 10, true);
+	UI_PrintString(String, gUI_Theme.FM.Status.X0, gUI_Theme.FM.Status.X1, gUI_Theme.FM.Status.Y, gUI_Theme.FM.Status.W, true);
+
 	memset(String, 0, sizeof(String));
 
 	if (gAskToSave || (gEeprom.FM_IsMrMode && gInputBoxIndex)) {
@@ -74,9 +74,9 @@ void UI_DisplayFM(void)
 	} else if (!gAskToDelete) {
 		if (gInputBoxIndex == 0) {
 			NUMBER_ToDigits(gEeprom.FM_FrequencyPlaying * 10000, String);
-			UI_DisplayFrequency(String, 23, 4, false, true);
+			UI_DisplayFrequency(String, gUI_Theme.FM.Freq.X, gUI_Theme.FM.Freq.Y, false, true);
 		} else {
-			UI_DisplayFrequency(gInputBox, 23, 4, true, false);
+			UI_DisplayFrequency(gInputBox, gUI_Theme.FM.Freq.X, gUI_Theme.FM.Freq.Y, true, false);
 		}
 		ST7565_BlitFullScreen();
 		return;
@@ -84,7 +84,7 @@ void UI_DisplayFM(void)
 		sprintf(String, "CH-%02d", gEeprom.FM_SelectedChannel + 1);
 	}
 
-	UI_PrintString(String, 0, 127, 4, 10, true);
+	UI_PrintString(String, gUI_Theme.FM.Channel.X0, gUI_Theme.FM.Channel.X1, gUI_Theme.FM.Channel.Y, gUI_Theme.FM.Channel.W, true);
 	ST7565_BlitFullScreen();
 }
 

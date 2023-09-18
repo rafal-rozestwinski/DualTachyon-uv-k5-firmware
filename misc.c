@@ -166,6 +166,8 @@ uint16_t gCurrentRSSI;
 
 uint8_t gIsLocked = 0xFF;
 
+bool bRestoreTheme;
+
 // --------
 
 void NUMBER_Get(char *pDigits, uint32_t *pInteger)

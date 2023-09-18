@@ -26,60 +26,61 @@
 #include "misc.h"
 #include "settings.h"
 #include "ui/status.h"
+#include "ui/theme.h"
 
 void UI_DisplayStatus(void)
 {
 	memset(gStatusLine, 0, sizeof(gStatusLine));
 	if (gCurrentFunction == FUNCTION_POWER_SAVE) {
-		memcpy(gStatusLine, BITMAP_PowerSave, sizeof(BITMAP_PowerSave));
+		memcpy(gStatusLine + gUI_Theme.Status.PowerSave, BITMAP_PowerSave, sizeof(BITMAP_PowerSave));
 	}
 	if (gBatteryDisplayLevel < 2) {
 		if (gLowBatteryBlink == 1) {
-			memcpy(gStatusLine + 110, BITMAP_BatteryLevel1, sizeof(BITMAP_BatteryLevel1));
+			memcpy(gStatusLine + gUI_Theme.Battery.X, BITMAP_BatteryLevel1, sizeof(BITMAP_BatteryLevel1));
 		}
 	} else {
 		if (gBatteryDisplayLevel == 2) {
-			memcpy(gStatusLine + 110, BITMAP_BatteryLevel2, sizeof(BITMAP_BatteryLevel2));
+			memcpy(gStatusLine + gUI_Theme.Battery.X, BITMAP_BatteryLevel2, sizeof(BITMAP_BatteryLevel2));
 		} else if (gBatteryDisplayLevel == 3) {
-			memcpy(gStatusLine + 110, BITMAP_BatteryLevel3, sizeof(BITMAP_BatteryLevel3));
+			memcpy(gStatusLine + gUI_Theme.Battery.X, BITMAP_BatteryLevel3, sizeof(BITMAP_BatteryLevel3));
 		} else if (gBatteryDisplayLevel == 4) {
-			memcpy(gStatusLine + 110, BITMAP_BatteryLevel4, sizeof(BITMAP_BatteryLevel4));
+			memcpy(gStatusLine + gUI_Theme.Battery.X, BITMAP_BatteryLevel4, sizeof(BITMAP_BatteryLevel4));
 		} else {
-			memcpy(gStatusLine + 110, BITMAP_BatteryLevel5, sizeof(BITMAP_BatteryLevel5));
+			memcpy(gStatusLine + gUI_Theme.Battery.X, BITMAP_BatteryLevel5, sizeof(BITMAP_BatteryLevel5));
 		}
 	}
 	if (gChargingWithTypeC) {
-		memcpy(gStatusLine + 100, BITMAP_USB_C, sizeof(BITMAP_USB_C));
+		memcpy(gStatusLine + gUI_Theme.Status.Charging, BITMAP_USB_C, sizeof(BITMAP_USB_C));
 	}
 	if (gEeprom.KEY_LOCK) {
-		memcpy(gStatusLine + 90, BITMAP_KeyLock, sizeof(BITMAP_KeyLock));
+		memcpy(gStatusLine + gUI_Theme.Status.KeyLock, BITMAP_KeyLock, sizeof(BITMAP_KeyLock));
 	} else if (gWasFKeyPressed) {
-		memcpy(gStatusLine + 90, BITMAP_F_Key, sizeof(BITMAP_F_Key));
+		memcpy(gStatusLine + gUI_Theme.Status.FKey, BITMAP_F_Key, sizeof(BITMAP_F_Key));
 	}
 
 	if (gEeprom.VOX_SWITCH) {
-		memcpy(gStatusLine + 71, BITMAP_VOX, sizeof(BITMAP_VOX));
+		memcpy(gStatusLine + gUI_Theme.Status.Vox, BITMAP_VOX, sizeof(BITMAP_VOX));
 	}
 	if (gEeprom.CROSS_BAND_RX_TX != CROSS_BAND_OFF) {
-		memcpy(gStatusLine + 58, BITMAP_WX, sizeof(BITMAP_WX));
+		memcpy(gStatusLine + gUI_Theme.Status.CrossBand, BITMAP_WX, sizeof(BITMAP_WX));
 	}
 	if (gEeprom.DUAL_WATCH != DUAL_WATCH_OFF) {
-		memcpy(gStatusLine + 45, BITMAP_TDR, sizeof(BITMAP_TDR));
+		memcpy(gStatusLine + gUI_Theme.Status.DualWatch, BITMAP_TDR, sizeof(BITMAP_TDR));
 	}
 	if (gEeprom.VOICE_PROMPT != VOICE_PROMPT_OFF) {
-		memcpy(gStatusLine + 34, BITMAP_VoicePrompt, sizeof(BITMAP_VoicePrompt));
+		memcpy(gStatusLine + gUI_Theme.Status.Prompt, BITMAP_VoicePrompt, sizeof(BITMAP_VoicePrompt));
 	}
 	if (gSetting_KILLED) {
-		memset(gStatusLine + 21, 0xFF, 10);
+		memset(gStatusLine + gUI_Theme.Status.Killed, 0xFF, 10);
 	}
 #if defined(ENABLE_FMRADIO)
 	else if (gFmRadioMode) {
-		memcpy(gStatusLine + 21, BITMAP_FM, sizeof(BITMAP_FM));
+		memcpy(gStatusLine + gUI_Theme.Status.FM, BITMAP_FM, sizeof(BITMAP_FM));
 	}
 #endif
 #if defined(ENABLE_NOAA)
 	if (gIsNoaaMode) {
-		memcpy(gStatusLine + 7, BITMAP_NOAA, sizeof(BITMAP_NOAA));
+		memcpy(gStatusLine + gUI_Theme.Status.NOAA, BITMAP_NOAA, sizeof(BITMAP_NOAA));
 	}
 #endif
 	ST7565_BlitStatusLine();

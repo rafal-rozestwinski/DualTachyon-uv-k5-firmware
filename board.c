@@ -43,6 +43,7 @@
 #if defined(ENABLE_OVERLAY)
 #include "sram-overlay.h"
 #endif
+#include "ui/theme.h"
 
 static const uint32_t gDefaultFrequencyTable[5] = {
 	14502500,
@@ -704,6 +705,11 @@ void BOARD_EEPROM_Init(void)
 			bHasCustomAesKey = true;
 			return;
 		}
+	}
+
+	EEPROM_ReadBuffer(0x1D00, &gUI_Theme, sizeof(gUI_Theme));
+	if (gUI_Theme.Aircopy.Status.X0 >= 128 || gUI_Theme.Aircopy.Status.X1 >= 128 || gUI_Theme.Aircopy.Status.W == 255 || !gUI_Theme.Aircopy.Status.W) {
+		bRestoreTheme = true;
 	}
 
 	bHasCustomAesKey = false;
